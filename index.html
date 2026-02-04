@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Zapatillas más vendidas. Comprá por WhatsApp rápido y fácil." />
+  <title>Tienda de Zapatillas | Top 10</title>
+
+  <style>
+    :root{
+      --bg:#0b0c10;
+      --card:#11131a;
+      --muted:#a6adbb;
+      --text:#eaf0ff;
+      --accent:#25D366; /* WhatsApp */
+      --accent2:#6ee7ff;
+      --border: rgba(255,255,255,.08);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% 0%, rgba(110,231,255,.12), transparent 55%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(37,211,102,.10), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height:1.35;
+    }
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{
+      display:flex;gap:18px;align-items:flex-start;justify-content:space-between;
+      padding:14px 0 20px 0;
+    }
+    .brand{
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border:1px solid var(--border);border-radius:999px;
+      background: rgba(255,255,255,.03);
+      width:fit-content;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .badge .dot{
+      width:9px;height:9px;border-radius:999px;background: var(--accent2);
+      box-shadow: 0 0 20px rgba(110,231,255,.5);
+    }
+    h1{
+      margin:0;
+      font-size: clamp(26px, 4vw, 40px);
+      letter-spacing:-.02em;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      max-width: 56ch;
+      font-size: 15px;
+    }
+    .cta{
+      display:flex;flex-direction:column;gap:10px;align-items:flex-end;
+      min-width: 230px;
+    }
+    .top-actions{
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:11px 14px;border-radius:999px;border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      cursor:pointer;
+      text-decoration:none;
+      font-weight:600;
+      transition:.2s transform,.2s background,.2s border;
+      user-select:none;
+      font-size:14px;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14);}
+    .btn-primary{
+      background: rgba(37,211,102,.14);
+      border-color: rgba(37,211,102,.32);
+    }
+    .btn-primary:hover{
+      background: rgba(37,211,102,.20);
+      border-color: rgba(37,211,102,.45);
+    }
+    .btn svg{width:18px;height:18px}
+
+    .panel{
+      margin-top: 10px;
+      display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      padding: 14px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+    }
+    .search{
+      flex: 1;
+      min-width: 220px;
+      display:flex;gap:10px;align-items:center;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      background: rgba(0,0,0,.25);
+    }
+    .search input{
+      width:100%;
+      background: transparent;
+      border:none;
+      outline:none;
+      color: var(--text);
+      font-size:14px;
+    }
+    .search .hint{color:var(--muted);font-size:13px}
+    .select{
+      display:flex;gap:10px;align-items:center;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 14px;
+      background: rgba(0,0,0,.25);
+    }
+    select{
+      background: transparent;
+      color: var(--text);
+      border:none;
+      outline:none;
+      font-size:14px;
+      cursor:pointer;
+    }
+    option{color:#000}
+    .grid{
+      margin-top: 16px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+    }
+    .card{
+      grid-column: span 12;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      display:flex;flex-direction:column;
+      min-height: 100%;
+    }
+    @media (min-width:720px){
+      .card{grid-column: span 6;}
+    }
+    @media (min-width:1020px){
+      .card{grid-column: span 4;}
+    }
+    .imgwrap{
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,.22);
+      position:relative;
+    }
+    .imgwrap img{
+      width:100%;height:100%;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .rank{
+      position:absolute;top:12px;left:12px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+      font-weight:800;
+      font-size:13px;
+    }
+    .content{
+      padding: 14px 14px 12px 14px;
+      display:flex;flex-direction:column;gap:10px;
+      flex:1;
+    }
+    .title{
+      margin:0;
+      font-size:16px;
+      letter-spacing:-.01em;
+    }
+    .meta{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .pill{
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .price{
+      display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    }
+    .price strong{font-size:18px}
+    .price span{color:var(--muted);font-size:13px}
+    .actions{
+      display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;
+    }
+    .btn-buy{
+      flex:1;
+      background: rgba(37,211,102,.18);
+      border-color: rgba(37,211,102,.36);
+    }
+    .btn-buy:hover{
+      background: rgba(37,211,102,.24);
+      border-color: rgba(37,211,102,.5);
+    }
+    .btn-secondary{
+      flex:1;
+    }
+    footer{
+      margin: 26px 0 6px 0;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;
+    }
+    .note{max-width: 70ch;}
+    .hide{display:none !important}
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="badge"><span class="dot"></span> Ventas por WhatsApp • Envíos a coordinar</div>
+        <h1>Top 10 Zapatillas más vendidas 👟</h1>
+        <p class="sub">Elegí tu modelo, talle y tocá <b>Comprar por WhatsApp</b>. Te abre el chat con el mensaje listo para enviar.</p>
+      </div>
+
+      <div class="cta">
+        <div class="top-actions">
+          <a class="btn btn-primary" id="btn-whatsapp-top" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.52 3.48A11.8 11.8 0 0 0 12.03 0C5.4 0 .05 5.35.05 11.98c0 2.11.55 4.17 1.6 5.99L0 24l6.2-1.62a11.93 11.93 0 0 0 5.83 1.49h.01c6.63 0 12-5.35 12-11.98c0-3.2-1.25-6.2-3.52-8.41ZM12.04 22a9.98 9.98 0 0 1-5.1-1.4l-.37-.22-3.68.96.98-3.58-.24-.37A9.92 9.92 0 0 1 2.05 12C2.05 6.46 6.52 2 12.04 2c2.66 0 5.16 1.03 7.04 2.9a9.86 9.86 0 0 1 2.92 7.1c0 5.54-4.47 10-9.96 10Zm5.74-7.48c-.31-.16-1.83-.9-2.12-1s-.5-.16-.71.16-.81 1-.99 1.2-.36.24-.67.08a8.16 8.16 0 0 1-2.41-1.48a9.09 9.09 0 0 1-1.67-2.08c-.17-.31 0-.48.13-.64c.14-.14.31-.36.47-.54c.16-.18.21-.31.31-.52c.1-.2.05-.39-.03-.55c-.08-.16-.71-1.72-.97-2.35c-.26-.62-.52-.54-.71-.55l-.6-.01c-.2 0-.52.08-.8.39c-.27.31-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.16.2 2.12 3.24 5.13 4.54c.72.31 1.28.49 1.72.63c.72.23 1.37.2 1.88.12c.57-.08 1.83-.74 2.09-1.46c.26-.72.26-1.33.18-1.46c-.08-.13-.29-.2-.6-.36Z"/></svg>
+            Consultar por WhatsApp
+          </a>
+          <a class="btn" href="#catalogo">Ver catálogo</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel" aria-label="filtros">
+      <div class="search" role="search">
+        <span class="hint">🔎</span>
+        <input id="q" type="search" placeholder="Buscar por marca o modelo (ej: Nike, Air, Adidas…)" />
+      </div>
+
+      <div class="select">
+        <span class="hint">Orden:</span>
+        <select id="sort">
+          <option value="rank">Más vendidos</option>
+          <option value="price_asc">Precio: menor a mayor</option>
+          <option value="price_desc">Precio: mayor a menor</option>
+          <option value="name_asc">Nombre: A → Z</option>
+        </select>
+      </div>
+
+      <div class="select">
+        <span class="hint">Talle:</span>
+        <select id="size">
+          <option value="">Todos</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+          <option value="41">41</option>
+          <option value="42">42</option>
+          <option value="43">43</option>
+          <option value="44">44</option>
+        </select>
+      </div>
+    </section>
+
+    <main id="catalogo" class="grid" aria-label="Catálogo"></main>
+
+    <footer>
+      <div class="note">
+        <b>Pagos:</b> Mercado Pago / Transferencia • <b>Envíos:</b> a coordinar • <b>Cambios:</b> dentro de 7 días (ajustalo a tu política)
+      </div>
+      <div>© <span id="year"></span> • Tu marca</div>
+    </footer>
+  </div>
+
+  <script>
+    // =========================
+    // 1) CAMBIÁ TU WHATSAPP ACÁ
+    // Formato: código país + área + número, SIN +, SIN 0, SIN 15.
+    // Ejemplo CABA: 54911XXXXXXXXXX
+    // =========================
+    const WHATSAPP_NUMBER = "5492364459336";
+
+    // Mensaje base (se completa por producto)
+    const BASE_MESSAGE = "Hola! Quiero comprar:";
+
+    // =========================
+    // 2) EDITÁ TUS 10 PRODUCTOS
+    // - img: ruta dentro de /img
+    // - rank: 1..10 (más vendido = 1)
+    // - price: número (sin símbolos)
+    // - currency: "$" o "USD" etc
+    // - sizes: lista de talles disponibles
+    // - label: texto corto opcional
+    // =========================
+    const PRODUCTS = [
+      { id:"p1",  rank:1,  name:"Nike Air Max — Black/White",      price: 129999, currency:"$", sizes:["40","41","42","43"], img:"img/zapa-01.jpg", label:"Nuevo ingreso" },
+      { id:"p2",  rank:2,  name:"Adidas Forum Low — White",        price: 119999, currency:"$", sizes:["39","40","41","42"], img:"img/zapa-02.jpg", label:"Top ventas" },
+      { id:"p3",  rank:3,  name:"Puma RS-X — Grey",                price: 109999, currency:"$", sizes:["40","41","42"],      img:"img/zapa-03.jpg", label:"Últimas unidades" },
+      { id:"p4",  rank:4,  name:"New Balance 550 — Cream",         price: 139999, currency:"$", sizes:["38","39","40","41"], img:"img/zapa-04.jpg", label:"Premium" },
+      { id:"p5",  rank:5,  name:"Nike Dunk Low — Blue",            price: 149999, currency:"$", sizes:["40","41","42","43"], img:"img/zapa-05.jpg", label:"Más pedido" },
+      { id:"p6",  rank:6,  name:"Adidas Samba — Classic",          price: 124999, currency:"$", sizes:["38","39","40","41","42"], img:"img/zapa-06.jpg", label:"Clásico" },
+      { id:"p7",  rank:7,  name:"Vans Old Skool — Black",          price:  89999, currency:"$", sizes:["39","40","41","42","43"], img:"img/zapa-07.jpg", label:"Urbano" },
+      { id:"p8",  rank:8,  name:"Converse Chuck 70 — High",        price:  94999, currency:"$", sizes:["38","39","40","41"], img:"img/zapa-08.jpg", label:"Infaltable" },
+      { id:"p9",  rank:9,  name:"Reebok Club C — White/Green",     price:  99999, currency:"$", sizes:["40","41","42"],      img:"img/zapa-09.jpg", label:"Retro" },
+      { id:"p10", rank:10, name:"Nike Revolution — Running",       price:  79999, currency:"$", sizes:["41","42","43","44"], img:"img/zapa-10.jpg", label:"Running" },
+    ];
+
+    // Utilidades
+    const formatMoney = (n, currency="$") => {
+      try {
+        return currency + " " + new Intl.NumberFormat("es-AR").format(n);
+      } catch {
+        return currency + " " + String(n);
+      }
+    };
+
+    const buildWaLink = ({name, price, currency, sizes}) => {
+      const msg = `${BASE_MESSAGE}\n\n• Modelo: ${name}\n• Precio: ${formatMoney(price, currency)}\n• Talle (elegir): ${sizes.join(", ")}\n\n¿Disponibilidad?`;
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    };
+
+    const elCatalog = document.getElementById("catalogo");
+    const elQ = document.getElementById("q");
+    const elSort = document.getElementById("sort");
+    const elSize = document.getElementById("size");
+
+    function render(){
+      const q = (elQ.value || "").trim().toLowerCase();
+      const size = elSize.value;
+
+      let items = PRODUCTS.slice();
+
+      // filtro search
+      if(q){
+        items = items.filter(p => p.name.toLowerCase().includes(q));
+      }
+
+      // filtro talle
+      if(size){
+        items = items.filter(p => p.sizes.includes(size));
+      }
+
+      // sort
+      const s = elSort.value;
+      items.sort((a,b)=>{
+        if(s === "rank") return a.rank - b.rank;
+        if(s === "price_asc") return a.price - b.price;
+        if(s === "price_desc") return b.price - a.price;
+        if(s === "name_asc") return a.name.localeCompare(b.name, "es");
+        return a.rank - b.rank;
+      });
+
+      elCatalog.innerHTML = "";
+
+      if(items.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "card";
+        empty.innerHTML = `
+          <div class="content">
+            <h3 class="title">No encontramos resultados 😅</h3>
+            <div class="meta"><span class="pill">Probá con otro nombre o talle</span></div>
+          </div>
+        `;
+        elCatalog.appendChild(empty);
+        return;
+      }
+
+      for(const p of items){
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const wa = buildWaLink(p);
+
+        card.innerHTML = `
+          <div class="imgwrap">
+            <img src="${p.img}" alt="${p.name}" loading="lazy" />
+            <div class="rank">#${p.rank}</div>
+          </div>
+          <div class="content">
+            <h3 class="title">${p.name}</h3>
+            <div class="meta">
+              ${p.label ? `<span class="pill">${p.label}</span>` : ``}
+              <span class="pill">Talles: ${p.sizes.join(", ")}</span>
+            </div>
+            <div class="price">
+              <strong>${formatMoney(p.price, p.currency)}</strong>
+              <span>• Consultá stock por WhatsApp</span>
+            </div>
+            <div class="actions">
+              <a class="btn btn-buy" href="${wa}" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.52 3.48A11.8 11.8 0 0 0 12.03 0C5.4 0 .05 5.35.05 11.98c0 2.11.55 4.17 1.6 5.99L0 24l6.2-1.62a11.93 11.93 0 0 0 5.83 1.49h.01c6.63 0 12-5.35 12-11.98c0-3.2-1.25-6.2-3.52-8.41ZM12.04 22a9.98 9.98 0 0 1-5.1-1.4l-.37-.22-3.68.96.98-3.58-.24-.37A9.92 9.92 0 0 1 2.05 12C2.05 6.46 6.52 2 12.04 2c2.66 0 5.16 1.03 7.04 2.9a9.86 9.86 0 0 1 2.92 7.1c0 5.54-4.47 10-9.96 10Zm5.74-7.48c-.31-.16-1.83-.9-2.12-1s-.5-.16-.71.16-.81 1-.99 1.2-.36.24-.67.08a8.16 8.16 0 0 1-2.41-1.48a9.09 9.09 0 0 1-1.67-2.08c-.17-.31 0-.48.13-.64c.14-.14.31-.36.47-.54c.16-.18.21-.31.31-.52c.1-.2.05-.39-.03-.55c-.08-.16-.71-1.72-.97-2.35c-.26-.62-.52-.54-.71-.55l-.6-.01c-.2 0-.52.08-.8.39c-.27.31-1.05 1.02-1.05 2.5s1.08 2.9 1.23 3.1c.16.2 2.12 3.24 5.13 4.54c.72.31 1.28.49 1.72.63c.72.23 1.37.2 1.88.12c.57-.08 1.83-.74 2.09-1.46c.26-.72.26-1.33.18-1.46c-.08-.13-.29-.2-.6-.36Z"/></svg>
+                Comprar por WhatsApp
+              </a>
+              <button class="btn btn-secondary" type="button" data-copy="${wa}">
+                Copiar link
+              </button>
+            </div>
+          </div>
+        `;
+
+        elCatalog.appendChild(card);
+      }
+
+      // Botón copiar link
+      document.querySelectorAll("[data-copy]").forEach(btn=>{
+        btn.addEventListener("click", async () => {
+          const link = btn.getAttribute("data-copy");
+          try{
+            await navigator.clipboard.writeText(link);
+            const prev = btn.textContent;
+            btn.textContent = "Copiado ✅";
+            setTimeout(()=>btn.textContent = prev, 1200);
+          }catch{
+            alert("No pude copiar. Link: " + link);
+          }
+        });
+      });
+    }
+
+    // CTA arriba (WhatsApp general)
+    const btnTop = document.getElementById("btn-whatsapp-top");
+    btnTop.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola! Quiero consultar por zapatillas (Top 10).")}`;
+
+    // Eventos
+    elQ.addEventListener("input", render);
+    elSort.addEventListener("change", render);
+    elSize.addEventListener("change", render);
+
+    // Año footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Render inicial
+    render();
+  </script>
+</body>
+</html>
